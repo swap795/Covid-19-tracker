@@ -3,7 +3,10 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import Map from './components/Map';
+import Cases from './components/Cases';
 import Deaths from './components/Deaths';
+import Recovered from './components/Recovered';
+
 
 import { MenuItem, FormControl, Select } from '@material-ui/core';
 
