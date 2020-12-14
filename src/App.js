@@ -26,6 +26,9 @@ function App() {
           {
               name: country.country,
               value: country.countryInfo.iso3,
+              cases: country.cases,
+              deaths: country.deaths,
+              recovered: country.recovered
           }
         ));
 

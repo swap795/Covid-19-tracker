@@ -4,7 +4,7 @@ import React from 'react'
 function Recovered(countries) {
    return(
       <div>
-         Recovered
+         {countries.recovered}
       </div>
    );
 }

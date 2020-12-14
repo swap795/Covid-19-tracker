@@ -4,7 +4,7 @@ import React from 'react'
 function Cases(countries) {
    return(
       <div>
-         Cases
+         {countries.todayCases}
       </div>
    );
 }
