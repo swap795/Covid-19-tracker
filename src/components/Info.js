@@ -2,8 +2,6 @@ import React from 'react'
 import styled from 'styled-components';
 import { Card, CardContent, Typography, makeStyles } from '@material-ui/core';
 
-import '../styles/Info.css';
-
 
 const useStyle = makeStyles({
    card: {
