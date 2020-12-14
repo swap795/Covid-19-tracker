@@ -1,22 +1,29 @@
 import React from 'react'
 import styled from 'styled-components';
+import { Card, CardContent, Typography, makeStyles } from '@material-ui/core';
 
-const InfoStyle = styled.div`
-   display: flex;
-   flex-direction: column;
-   height: 4rem;
-   width: 4rem;
-   background-color: grey;
-`;
+import '../styles/Info.css';
+
+
+const useStyle = makeStyles({
+   card: {
+      paddingRight: '5rem',
+   }
+})
 
 function Info(props) {
+   const classes = useStyle();
+
    return (
-      <InfoStyle>
-         {
-            props.title
-         }
-         <h1>{props.case} </h1>
-      </InfoStyle>
+      <div>
+         <Card className={ classes.card }>
+            <CardContent>
+               <Typography color="textPrimary">{ props.title }</Typography>
+               <h2>{ props.case }</h2>
+               <Typography color="textSecondary">{ props.total } Total</Typography>
+            </CardContent>
+         </Card>
+      </div>
    )
 }
 

@@ -1,6 +1,3 @@
-// import './App.css';
-
-import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import Map from './components/Map';
 import Cases from './components/Cases';
@@ -8,8 +5,11 @@ import Deaths from './components/Deaths';
 import Recovered from './components/Recovered';
 import Info from './components/Info';
 
+// styles
+import './App.css';
 
-import { MenuItem, FormControl, Select } from '@material-ui/core';
+
+import { Card, CardContent, Typography } from '@material-ui/core';
 
 // API for countries ---> https://disease.sh/v3/covid-19/countries
 
@@ -17,12 +17,26 @@ function App() {
   // get all the countries
   const [countries, setCountries] = useState([]);
   // get worldwide
-  const [clickedCountry, setClickedCountry] = useState('WorldWide');
-
+  const [clickedCountry, setClickedCountry] = useState('All');
+  // get country's info
   const [countryInfo, setCountryInfo] = useState({});
 
-  // useEffect runs code whenever something changes
-  // in this case, code runs when the browser loads
+  /* 
+  *   useEffect runs code whenever something changes
+  *   in this case, code runs when the browser loads
+  * */
+
+  // get the info of the World
+  // total in the world
+  useEffect(() => {
+    fetch("https://disease.sh/v3/covid-19/all")
+      .then(res => res.json())
+      .then(data => {
+        setCountryInfo(data);
+    })
+  }, [])
+
+  // get the data of all countries
   useEffect(() => {
     const getCountries = async () => {
       await fetch("https://disease.sh/v3/covid-19/countries")
@@ -42,43 +56,36 @@ function App() {
     getCountries();                                           // call the function 
   }, []);
 
-  useEffect(() => {
-    const getInfo = async () => {
-      await fetch(`https://disease.sh/v3/covid-19/countries/${clickedCountry}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const info = {
-          cases: clickedCountry.cases,
-          recovered: clickedCountry.recovered,
-          deaths: clickedCountry.deaths,
-        }
-      });
-
-      setCountryInfo(countryInfo);
-    }
-
-    getInfo();
-  }, [clickedCountry]);
-
-  console.log(countryInfo);
-
   return (
-    <div>
-      {/* passing the object as props */}
-      <Map 
-        data={ countries } 
-        country={ clickedCountry } 
-        setCountry= { setClickedCountry }
-      />
-      <div>
-        This is a Map.
+    <div className="container">
+      <div className="left__container">
+        {/* passing the object as props */}
+        <Map 
+          allCountries={ countries } 
+          country={ clickedCountry } 
+          setCountry= { setClickedCountry }
+          countryInfo={ countryInfo }
+          setCountryInfo={ setCountryInfo }
+        />
+        <div>
+          This is a Map.
+        </div>
+        <div className="InfoBoxes">
+          <Info title="Today's Cases" case={ countryInfo.todayCases } total={ countryInfo.cases }/>
+          <Info title="Today's Recovered" case={ countryInfo.todayRecovered } total={ countryInfo.recovered }/>
+          <Info title="Today's Deaths" case={ countryInfo.todayDeaths } total={ countryInfo.deaths }/>
+        </div>
       </div>
-      {/* <Cases data={ countries } />
-      <Deaths data={ countries } />
-      <Recovered data={ countries } /> */}
-      <Info title="Cases" case={ countryInfo.cases } />
-      <Info title="Recovered" case={ countryInfo.recovered }/>
-      <Info title="Deaths" case={ countryInfo.deaths }/>
+
+
+      <div className="right__container">
+        <Card>
+          <CardContent>
+            <h3>Live Cases by Countries</h3>
+            <h3>Worldwide new Cases</h3>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

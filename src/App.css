@@ -1,3 +1,20 @@
 * {
   margin: 0;
 }
+
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 2rem;
+}
+
+.InfoBoxes {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f1f1f1;
+  padding: 1rem;
+}
+
+.left__container {
+  flex: 0.7;
+}
