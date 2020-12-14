@@ -43,7 +43,9 @@ function App() {
       <div>
         This is a Map.
       </div>
+      <Cases data={ countries } />
       <Deaths data={ countries } />
+      <Recovered data={ countries } />
     </div>
   );
 }
