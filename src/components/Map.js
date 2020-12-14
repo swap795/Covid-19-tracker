@@ -1,20 +1,17 @@
 import { MenuItem, FormControl, Select } from '@material-ui/core';
 
-function Map(countries) {
+function Map(props) {
    return(
       <div>
          <FormControl>
             <Select variant="outlined" value="dropdown">
                {
-                  countries.map((country) => (
+                  props.data.map((country) => (
                      <MenuItem value={ country.value }>{country.name}</MenuItem>
                   ))             
                }
             </Select>
          </FormControl>
-         <div>
-            This is a Map.
-         </div>
       </div>
    );
 }

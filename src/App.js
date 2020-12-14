@@ -34,15 +34,7 @@ function App() {
 
   return (
     <div>
-      <FormControl>
-        <Select variant="outlined" value="dropdown">
-          {
-            countries.map((country) => (
-                <MenuItem value={ country.value }>{country.name}</MenuItem>
-            ))             
-          }
-        </Select>
-      </FormControl>
+      <Map data={ countries } />
       <div>
         This is a Map.
       </div>
