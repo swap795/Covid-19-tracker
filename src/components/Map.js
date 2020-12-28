@@ -1,4 +1,13 @@
 import { MenuItem, FormControl, Select } from '@material-ui/core';
+import styled from 'styled-components';
+
+const MapContainer = styled.div`
+   /* background-color: grey; */
+   height: 60vh;
+   width: 100%;
+   margin-top: 1rem;
+   margin-bottom: 1rem;
+`;
 
 function Map(props) {
    // handles the click on dropdown menu
@@ -31,6 +40,9 @@ function Map(props) {
                }
             </Select>
          </FormControl>
+         <MapContainer>
+            
+         </MapContainer>
       </div>
    );
 }

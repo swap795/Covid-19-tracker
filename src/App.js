@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Map from './components/Map';
-import Cases from './components/Cases';
-import Deaths from './components/Deaths';
-import Recovered from './components/Recovered';
 import Info from './components/Info';
+import Table from './components/Table';
+
+import { sortData, numberWithCommas } from './util';
 
 // styles
 import './App.css';
@@ -20,6 +20,8 @@ function App() {
   const [clickedCountry, setClickedCountry] = useState('All');
   // get country's info
   const [countryInfo, setCountryInfo] = useState({});
+
+  const [tableData, setTableData] = useState([]);
 
   /* 
   *   useEffect runs code whenever something changes
@@ -49,7 +51,11 @@ function App() {
           }
         ));
 
-        setCountries(countries);                              // store those data
+        // sort the countries by cases for our table
+        const sortedData = sortData(data);
+        setTableData(sortedData);
+
+        setCountries(countries);                              // store data
       })
     }
 
@@ -67,9 +73,6 @@ function App() {
           countryInfo={ countryInfo }
           setCountryInfo={ setCountryInfo }
         />
-        <div>
-          This is a Map.
-        </div>
         <div className="InfoBoxes">
           <Info title="Today's Cases" case={ countryInfo.todayCases } total={ countryInfo.cases }/>
           <Info title="Today's Recovered" case={ countryInfo.todayRecovered } total={ countryInfo.recovered }/>
@@ -82,6 +85,7 @@ function App() {
         <Card>
           <CardContent>
             <h3>Live Cases by Countries</h3>
+            <Table data={ tableData } />
             <h3>Worldwide new Cases</h3>
           </CardContent>
         </Card>
