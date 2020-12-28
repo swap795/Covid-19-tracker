@@ -5,7 +5,7 @@
 .container {
   display: flex;
   justify-content: space-evenly;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .InfoBoxes {
@@ -13,6 +13,7 @@
   justify-content: space-between;
   background-color: #f1f1f1;
   padding: 1rem;
+  width: 100%;
 }
 
 .left__container {

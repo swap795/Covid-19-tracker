@@ -1,6 +1,5 @@
 // display commas in numbers
 export const numberWithCommas = (num) => {
-   console.log(num);
    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
  }
 

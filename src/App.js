@@ -22,10 +22,20 @@ function App() {
   const [countryInfo, setCountryInfo] = useState({});
 
   const [tableData, setTableData] = useState([]);
+  const [mapCenter, setMapCenter] = 
+  useState(
+    { 
+    // [
+      lat: 34.80746, 
+      lng: -40.4796,       
+    // ]
+    }
+  );
+  const [mapZoom, setMapZoom] = useState(3);
 
   /* 
   *   useEffect runs code whenever something changes
-  *   in this case, code runs when the browser loads
+  *   in this case, this useEffect runs when the browser loads
   * */
 
   // get the info of the World
@@ -35,7 +45,7 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setCountryInfo(data);
-    })
+    });
   }, [])
 
   // get the data of all countries
@@ -52,7 +62,7 @@ function App() {
         ));
 
         // sort the countries by cases for our table
-        const sortedData = sortData(data);
+        let sortedData = sortData(data);
         setTableData(sortedData);
 
         setCountries(countries);                              // store data
@@ -72,6 +82,10 @@ function App() {
           setCountry= { setClickedCountry }
           countryInfo={ countryInfo }
           setCountryInfo={ setCountryInfo }
+          center={ mapCenter }
+          setCenter={ setMapCenter }
+          zoom={ mapZoom }
+          setZoom={ setMapZoom }
         />
         <div className="InfoBoxes">
           <Info title="Today's Cases" case={ countryInfo.todayCases } total={ countryInfo.cases }/>
