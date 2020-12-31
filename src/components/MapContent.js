@@ -1,7 +1,8 @@
 import { MenuItem, FormControl, Select } from '@material-ui/core';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useMap, MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 import styled from 'styled-components';
+import { drawCircle } from '../util';
 
 
 const MapStyle = styled.div`
@@ -21,7 +22,8 @@ const MapStyle = styled.div`
    }
 `;
 
-function Map(props) {
+
+function MapContent(props) {
    // handles the click on dropdown menu
    // also sets the info of countries in the infoBoxes
    const clickHandler = async (event) => {
@@ -33,15 +35,44 @@ function Map(props) {
          .then(data => {
             props.setCountry(countryCode);                // set the country code
             props.setCountryInfo(data);                   // set the country info object
-            props.setCenter(
-               {
-                  lat: data.countryInfo.lat, 
-                  lng: data.countryInfo.long,
-               }
-            );
-            props.setZoom(4);
+
+            if(countryCode === 'All') {
+               props.setCenter({ lat: 30, lng: -40 });
+               props.setZoom(0);
+            } else {
+               props.setCenter({ lat: data.countryInfo.lat, lng: data.countryInfo.long });
+            }
+
+            switch(data.continent) {
+               case 'North America':
+                  props.setZoom(4.3);
+                  break;
+               case 'South America':
+                  props.setZoom(5);
+                  break;
+               case 'Africa':
+                  props.setZoom(5);
+                  break;
+               case 'Europe':
+                  props.setZoom(5);
+                  break;
+               case 'Asia':
+                  props.setZoom(5);
+                  break;
+               case 'Australia':
+                  props.setZoom(5);
+                  break;
+               default:
+                  props.setZoom(4);
+            }
             // console.log({lat: data.countryInfo.lat, lng: data.countryInfo.long})
       })
+   }
+
+   const MyComponent = () => {
+      const map = useMap();
+      map.setView([props.center.lat, props.center.lng], props.zoom);
+      return null;
    }
 
    return(
@@ -61,16 +92,21 @@ function Map(props) {
             </Select>
          </FormControl>
          <MapStyle>
-            <MapContainer center={ [props.center.lat, props.center.lng] } zoom={ props.zoom }>
+            <MapContainer center={ props.center } zoom={ props.zoom }>
+               <MyComponent />
                <TileLayer 
                   attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                >
                </TileLayer>
+               {/* Popups for countries */}
+               {
+                  drawCircle(props.countryPopupInfo, props.casesType)
+               }
             </MapContainer>
          </MapStyle>
       </div>
    );
 }
 
-export default Map;
+export default MapContent;

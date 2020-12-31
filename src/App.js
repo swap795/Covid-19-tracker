@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Map from './components/Map';
+import MapContent from './components/MapContent';
 import Info from './components/Info';
 import Table from './components/Table';
 
@@ -14,24 +14,14 @@ import { Card, CardContent, Typography } from '@material-ui/core';
 // API for countries ---> https://disease.sh/v3/covid-19/countries
 
 function App() {
-  // get all the countries
-  const [countries, setCountries] = useState([]);
-  // get worldwide
-  const [clickedCountry, setClickedCountry] = useState('All');
-  // get country's info
-  const [countryInfo, setCountryInfo] = useState({});
-
-  const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = 
-  useState(
-    { 
-    // [
-      lat: 34.80746, 
-      lng: -40.4796,       
-    // ]
-    }
-  );
-  const [mapZoom, setMapZoom] = useState(3);
+  const [countries, setCountries] = useState([]);                                 // country's name and value
+  const [clickedCountry, setClickedCountry] = useState('All');                    // info of the country that is CLICKED on the dropdown menu
+  const [countryInfo, setCountryInfo] = useState({});                             // gets the WORLD'S INFO first -- if not, then -- country's info
+  const [tableData, setTableData] = useState([]);                                 // data for the table
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });   // map positions
+  const [mapZoom, setMapZoom] = useState(3);                                      // map zoom level
+  const [countryPopupInfo, setCountryPopupInfo] = useState([]);                   // country's info for popup on the Map
+  const [casesType, setCasesType] = useState("cases");
 
   /* 
   *   useEffect runs code whenever something changes
@@ -66,6 +56,7 @@ function App() {
         setTableData(sortedData);
 
         setCountries(countries);                              // store data
+        setCountryPopupInfo(data);
       })
     }
 
@@ -76,7 +67,7 @@ function App() {
     <div className="container">
       <div className="left__container">
         {/* passing the object as props */}
-        <Map 
+        <MapContent 
           allCountries={ countries } 
           country={ clickedCountry } 
           setCountry= { setClickedCountry }
@@ -86,6 +77,8 @@ function App() {
           setCenter={ setMapCenter }
           zoom={ mapZoom }
           setZoom={ setMapZoom }
+          countryPopupInfo={ countryPopupInfo }
+          casesType={ casesType }
         />
         <div className="InfoBoxes">
           <Info title="Today's Cases" case={ countryInfo.todayCases } total={ countryInfo.cases }/>

@@ -40,22 +40,26 @@ function Table(props) {
    return (
       <div>
          <TableContainer>
-            <tr>
-               <th>Countries</th>
-               <th>Cases</th>
-            </tr>
-            {
-               countries.map(country => (
+            <table>
+               <tbody>
                   <tr>
-                     <td>
-                        { country.country }
-                     </td>
-                     <td>
-                        { numberWithCommas(country.cases) }
-                     </td>
+                     <th>Countries</th>
+                     <th>Cases</th>
                   </tr>
-               ))
-            }
+                  {
+                     countries.map(country => (
+                        <tr>
+                           <td>
+                              { country.country }
+                           </td>
+                           <td>
+                              { numberWithCommas(country.cases) }
+                           </td>
+                        </tr>
+                     ))
+                  }
+               </tbody>
+            </table>
          </TableContainer>
       </div>
    )
