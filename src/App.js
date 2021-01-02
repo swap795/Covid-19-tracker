@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import MapContent from './components/MapContent';
 import Info from './components/Info';
 import Table from './components/Table';
+import CovidGraph from './components/CovidGraph';
 
 import { sortData, numberWithCommas } from './util';
 
 // styles
-import './App.css';
+import './styles/App.css';
 
 
 import { Card, CardContent, Typography } from '@material-ui/core';
@@ -21,7 +22,7 @@ function App() {
   const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });   // map positions
   const [mapZoom, setMapZoom] = useState(3);                                      // map zoom level
   const [countryPopupInfo, setCountryPopupInfo] = useState([]);                   // country's info for popup on the Map
-  const [casesType, setCasesType] = useState("cases");
+  const [casesType, setCasesType] = useState("cases");                            // which type of case is it? (ex: cases, recovered, deaths)
 
   /* 
   *   useEffect runs code whenever something changes
@@ -65,12 +66,18 @@ function App() {
 
   return (
     <div className="container">
+      {
+      /* 
+      *   LEFT container
+      *
+      */
+      }
       <div className="left__container">
         {/* passing the object as props */}
         <MapContent 
           allCountries={ countries } 
-          country={ clickedCountry } 
-          setCountry= { setClickedCountry }
+          clickedCountry={ clickedCountry } 
+          setClickedCountry= { setClickedCountry }
           countryInfo={ countryInfo }
           setCountryInfo={ setCountryInfo }
           center={ mapCenter }
@@ -85,15 +92,20 @@ function App() {
           <Info title="Today's Recovered" case={ countryInfo.todayRecovered } total={ countryInfo.recovered }/>
           <Info title="Today's Deaths" case={ countryInfo.todayDeaths } total={ countryInfo.deaths }/>
         </div>
+        <CovidGraph />
       </div>
-
-
+      {
+      /* 
+      *   RIGHT container
+      *
+      */
+      }
       <div className="right__container">
         <Card>
           <CardContent>
-            <h3>Live Cases by Countries</h3>
+            <h2>Live Cases</h2>
             <Table data={ tableData } />
-            <h3>Worldwide new Cases</h3>
+            <h2>Worldwide new Cases</h2>
           </CardContent>
         </Card>
       </div>

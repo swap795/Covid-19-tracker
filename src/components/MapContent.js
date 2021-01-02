@@ -1,13 +1,18 @@
 import { MenuItem, FormControl, Select } from '@material-ui/core';
-import { useMap, MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useMap, MapContainer, TileLayer, Circle, Popup } from 'react-leaflet';
 
 import styled from 'styled-components';
 import { drawCircle } from '../util';
 
 
+
+// temporary imports for testing
+
+
 const MapStyle = styled.div`
-   background-color: #acaaaa;
-   height: 60vh;
+   /* background-color: #acaaaa; */
+   background-color: #cdd0cb;
+   height: 50vh;
    width: 100%;
    border-radius: .6rem;
    padding: 1rem;
@@ -33,12 +38,12 @@ function MapContent(props) {
       await fetch(url)
          .then(res => res.json())
          .then(data => {
-            props.setCountry(countryCode);                // set the country code
+            props.setClickedCountry(countryCode);                // set the country code
             props.setCountryInfo(data);                   // set the country info object
 
             if(countryCode === 'All') {
-               props.setCenter({ lat: 30, lng: -40 });
-               props.setZoom(0);
+               props.setCenter({ lat: 30, lng: 0 });
+               props.setZoom(2);
             } else {
                props.setCenter({ lat: data.countryInfo.lat, lng: data.countryInfo.long });
             }
@@ -62,10 +67,7 @@ function MapContent(props) {
                case 'Australia':
                   props.setZoom(5);
                   break;
-               default:
-                  props.setZoom(4);
             }
-            // console.log({lat: data.countryInfo.lat, lng: data.countryInfo.long})
       })
    }
 
@@ -75,12 +77,13 @@ function MapContent(props) {
       return null;
    }
 
+
    return(
       <div>
          <FormControl>
             <Select 
                variant="outlined" 
-               value={ props.country }
+               value={ props.clickedCountry }
                onChange={ clickHandler } 
             >
                <MenuItem value="All">All</MenuItem>
@@ -101,7 +104,7 @@ function MapContent(props) {
                </TileLayer>
                {/* Popups for countries */}
                {
-                  drawCircle(props.countryPopupInfo, props.casesType)
+                  drawCircle(props.countryPopupInfo, props.casesType, props.clickedCountry)
                }
             </MapContainer>
          </MapStyle>

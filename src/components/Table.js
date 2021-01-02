@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { numberWithCommas } from '../util';
 
 const TableContainer = styled.div`
-   background-color: #d4e2d4;
+   background-color: white;
    border-radius: 1rem;
    padding: 0.3rem 0.3rem 0.3rem 0.3rem;
-   height: 30vh;
+   height: 60vh;
    margin: .5rem 0 1rem 0;
    border-spacing: 1rem 0;
    overflow: scroll;
@@ -31,6 +31,10 @@ const TableContainer = styled.div`
    }
    td {
       padding: 0.3rem;
+   }
+   tr:nth-of-type(even) {
+      background-color: #cdd0cb;
+      border-radius: .3rem;
    }
 `;
 
