@@ -22,15 +22,17 @@ export const sortData = (data) => {
 const casesTypeColors = {
   cases: {
     hex: "#CC1034",
+    // hex: "#222831",
     multiplier: 500,
   },
   recovered: {
-    hex: "#7dd71d",
-    multiplier: 1200,
+    // hex: "#7dd71d",
+    hex: "#70af85",
+    multiplier: 800,
   },
   deaths: {
-    hex: "#fb443",
-    multiplier: 2000,
+    hex: "#433d3c",
+    multiplier: 1000,
   },
 };
 
@@ -57,8 +59,12 @@ export const drawCircle = (data, casesType, clickedCountry) => {
       <Circle
         center={ [country.countryInfo.lat, country.countryInfo.long] }
         fillOpacity={ 0.4 }
-        color={ casesTypeColors[casesType].hex }
-        fillColor= { casesTypeColors[casesType].hex }
+        // color={ casesTypeColors[casesType].hex }
+        // fillColor= { casesTypeColors[casesType].hex }
+        pathOptions={{ 
+          color: casesTypeColors[casesType].hex,
+          fillColor: casesTypeColors[casesType].hex 
+        }}
         radius={ Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier }
       >
         <Tooltip>{ country.country }</Tooltip>

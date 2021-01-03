@@ -71,6 +71,7 @@ function MapContent(props) {
       })
    }
 
+   // Need this component to override the last value on the map to change its view
    const MyComponent = () => {
       const map = useMap();
       map.setView([props.center.lat, props.center.lng], props.zoom);

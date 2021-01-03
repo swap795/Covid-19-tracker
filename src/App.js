@@ -7,13 +7,53 @@ import CovidGraph from './components/CovidGraph';
 import { sortData, numberWithCommas } from './util';
 
 // styles
+import styled from 'styled-components';
 import './styles/App.css';
 
 
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardContent, Typography, withTheme } from '@material-ui/core';
+
+
+const InfoBoxes = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: #cdd0cb;
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 100%;
+`;
+
+
+/*
+*   These three style stored variables are passed in as props into the Info componenet seperately
+*/
+const casesColor = {
+  // backgroundColor: '#CC1034',
+  border: '.15rem solid #a55362',
+  backgroundColor: '#dd7588',
+  // color: '#3a3a3a',
+}
+
+const recoveredColor = {
+  border: '.15rem solid #567e63',
+  backgroundColor: '#80bd94',
+}
+
+const deathsColor = {
+  border: '.15rem solid #302f2e',
+  backgroundColor: '#5a5655',
+  color: 'white',
+}
+
 
 // API for countries ---> https://disease.sh/v3/covid-19/countries
 
+
+/*
+*
+*     ACTUAL RENDER
+*
+*/
 function App() {
   const [countries, setCountries] = useState([]);                                 // country's name and value
   const [clickedCountry, setClickedCountry] = useState('All');                    // info of the country that is CLICKED on the dropdown menu
@@ -87,11 +127,32 @@ function App() {
           countryPopupInfo={ countryPopupInfo }
           casesType={ casesType }
         />
-        <div className="InfoBoxes">
-          <Info title="Today's Cases" case={ countryInfo.todayCases } total={ countryInfo.cases }/>
-          <Info title="Today's Recovered" case={ countryInfo.todayRecovered } total={ countryInfo.recovered }/>
-          <Info title="Today's Deaths" case={ countryInfo.todayDeaths } total={ countryInfo.deaths }/>
-        </div>
+        <InfoBoxes>
+          <Info 
+            style={ casesColor }
+            onClick={ () => setCasesType("cases") } 
+            casesType={ casesType } 
+            title="Today's Cases" 
+            case={ countryInfo.todayCases } 
+            total={ countryInfo.cases }
+          />
+          <Info 
+            style={ recoveredColor }
+            onClick={ () => setCasesType("recovered") } 
+            casesType={ casesType } 
+            title="Today's Recovered" 
+            case={ countryInfo.todayRecovered } 
+            total={ countryInfo.recovered }
+          />
+          <Info 
+            style={ deathsColor }
+            onClick={ () => setCasesType("deaths") } 
+            casesType={ casesType } 
+            title="Today's Deaths" 
+            case={ countryInfo.todayDeaths } 
+            total={ countryInfo.deaths }
+          />
+        </InfoBoxes>
         <CovidGraph />
       </div>
       {
