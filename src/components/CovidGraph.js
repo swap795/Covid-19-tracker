@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2';
+import numeral from 'numeral';
 
 import styled from 'styled-components';
 
@@ -7,14 +8,30 @@ const LineStyle = styled.div`
    margin: 1rem;
 `;
 
+const casesTypeColors = {
+   cases: {
+     hex: "#CC1034",
+   },
+   recovered: {
+     hex: "#70af85",
+   },
+   deaths: {
+     hex: "#433d3c",
+   },
+ };
+
+
 const options = {
    scales: {
       xAxes: [
          {
             type: "time",
-            // distribution: 'series',
             time: {
                format: "MM/DD/YY",
+            },
+            scaleLabel: {
+               display: true,
+               labelString: 'Timeline'
             },
          },
       ],
@@ -23,10 +40,18 @@ const options = {
             gridLines : { 
                display: false, 
             },
-            // ticks: {
-               
-            // }
-
+            ticks: {
+               autoSkip: false,
+               min: 0,
+               max: 100000000,
+               callback: (value) => {
+                  return numeral(value).format("0.0 a");
+               },
+            },
+            scaleLabel: {
+               display: true,
+               labelString: '# of People'
+            }
          }
       ]
    },
@@ -46,25 +71,26 @@ const options = {
    }
 }
 
-const keyValue_Helper = (data) => {
+const keyValue_Helper = (data, casesType) => {
    let newData = [];
    let labels = {};
    // console.log(data);
-   for(let date in data['cases']) {
+   for(let date in data["cases"]) {
       // alert(date);
       // alert(data.cases[date]);
       labels = {
          // dates are same for all type of cases 
          x: date,
-         y: data['cases'][date],
+         // y: data['cases'][date],
+         y: data[casesType][date],
       };
       newData.push(labels);
-      // console.log(newData);
+      console.log(newData);
    }
    return newData;
 }
 
-function CovidGraph() {
+function CovidGraph(props) {
    const [graphData, setGraphData] = useState({});
    /*
   * These info are for the graph
@@ -87,13 +113,13 @@ function CovidGraph() {
                                                         } 
                                                         ... ]                                        
             */
-            // console.log(data);
-            let newData = keyValue_Helper(data);
+            // console.log(data[props.casesType]);
+            let newData = keyValue_Helper(data, props.casesType);
             setGraphData(newData);
          });
       };
       getHistory();
-   }, [])
+   }, [props.casesType])            // need [casesType] so that we can get new data everytime the info cards are clicked
 
 
    return (
@@ -110,7 +136,7 @@ function CovidGraph() {
                            fill: true,
                            // lineTension: 0.8,
                            // backgroundColor: 'rgba(75,192,192,1)',
-                           backgroundColor: '#CC1034',
+                           backgroundColor: casesTypeColors[props.casesType].hex,
                            borderColor: 'rgba(0,0,0,1)',
                            borderWidth: 2,
                            data: graphData,

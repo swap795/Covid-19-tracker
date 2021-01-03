@@ -153,7 +153,7 @@ function App() {
             total={ countryInfo.deaths }
           />
         </InfoBoxes>
-        <CovidGraph />
+        <CovidGraph casesType={ casesType } />
       </div>
       {
       /* 
