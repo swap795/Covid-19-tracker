@@ -166,7 +166,6 @@ function App() {
           <CardContent>
             <h2>Live Cases</h2>
             <Table data={ tableData } />
-            <h2>Worldwide new Cases</h2>
           </CardContent>
         </Card>
       </div>
