@@ -63,7 +63,7 @@ const options = {
    title:{
       display: true,
       text: 'WorldWide Cases',
-      fontSize: 20
+      fontSize: 25
    },
    legend:{
       display: true,
@@ -78,6 +78,8 @@ const keyValue_Helper = (data, casesType) => {
    for(let date in data["cases"]) {
       // alert(date);
       // alert(data.cases[date]);
+
+      //  grab the key, value pair
       labels = {
          // dates are same for all type of cases 
          x: date,
