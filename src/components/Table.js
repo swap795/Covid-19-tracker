@@ -4,13 +4,15 @@ import styled from 'styled-components';
 import { numberWithCommas } from '../util';
 
 const TableContainer = styled.div`
-   background-color: white;
+   background-color: #e8e8e8;
+   /* background-color: red; */
    border-radius: 1rem;
    padding: 0.3rem 0.3rem 0.3rem 0.3rem;
-   height: 60vh;
+   height: 33rem;
    margin: .5rem 0 1rem 0;
    border-spacing: 1rem 0;
    overflow: scroll;
+   /* justify-content: center; */
    
    ::-webkit-scrollbar {
       display: block;
@@ -21,11 +23,18 @@ const TableContainer = styled.div`
       background-color: #6f9eaf;
    }
 
+   table {
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+   }
+
    th {
       font-size: 1.3rem;
       padding-bottom: 1rem;
    }
    tr {
+      /* width: 100%auto; */
       display: flex;
       justify-content: space-between;
    }
@@ -42,30 +51,28 @@ function Table(props) {
    const countries = props.data;
 
    return (
-      <div>
-         <TableContainer>
-            <table>
-               <tbody>
-                  <tr>
-                     <th>Countries</th>
-                     <th>Cases</th>
-                  </tr>
-                  {
-                     countries.map(country => (
-                        <tr>
-                           <td>
-                              { country.country }
-                           </td>
-                           <td>
-                              { numberWithCommas(country.cases) }
-                           </td>
-                        </tr>
-                     ))
-                  }
-               </tbody>
-            </table>
-         </TableContainer>
-      </div>
+      <TableContainer>
+         <table>
+            <tbody>
+               <tr>
+                  <th>Countries</th>
+                  <th>Cases</th>
+               </tr>
+               {
+                  countries.map(country => (
+                     <tr>
+                        <td>
+                           { country.country }
+                        </td>
+                        <td>
+                           { numberWithCommas(country.cases) }
+                        </td>
+                     </tr>
+                  ))
+               }
+            </tbody>
+         </table>
+      </TableContainer>
    )
 }
 

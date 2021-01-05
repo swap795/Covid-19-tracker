@@ -6,11 +6,27 @@
   display: flex;
   justify-content: space-evenly;
   padding: 1rem;
-  background-color: #f5f4f4;
-  height: 100vh;
-  /* width: 100vw; */
+  background-color: #e8eae6;
+  /* width: 100%; */
 }
 
 .left__container {
   flex: 0.75;
 }
+
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .right__container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+  }
+} 
+
+
+
+

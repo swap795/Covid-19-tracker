@@ -87,7 +87,7 @@ const keyValue_Helper = (data, casesType) => {
          y: data[casesType][date],
       };
       newData.push(labels);
-      console.log(newData);
+      // console.log(newData);
    }
    return newData;
 }
