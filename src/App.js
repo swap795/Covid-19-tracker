@@ -3,6 +3,7 @@ import MapContent from './components/MapContent';
 import Info from './components/Info';
 import Table from './components/Table';
 import CovidGraph from './components/CovidGraph';
+import Footer from './components/Footer';
 
 import { sortData, numberWithCommas } from './util';
 
@@ -20,18 +21,38 @@ const InfoBoxes = styled.div`
   background-color: #cdd0cb;
   border-radius: 1rem;
   padding: 1rem;
-  width: 100%;
+
+  @media (max-width: 1024px) {
+    padding: .5rem;
+    margin-left: 4rem;
+    width: 85%;
+  }
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    width: 90%;
+  }
 `;
 
+const AppHeader = styled.div`
+  font-family: sans-serif, sans-serif;
+  font-weight: bolder;
+  font-size: 2.5rem;
+  text-align: center;
+`;
+
+const cardStyle = {
+  backgroundColor: '#cdd0cb',
+}
 
 /*
 *   These three style stored variables are passed in as props into the Info componenet seperately
 */
 const casesColor = {
-  // backgroundColor: '#CC1034',
   border: '.15rem solid #a55362',
   backgroundColor: '#dd7588',
-  // color: '#3a3a3a',
 }
 
 const recoveredColor = {
@@ -59,8 +80,8 @@ function App() {
   const [clickedCountry, setClickedCountry] = useState('All');                    // info of the country that is CLICKED on the dropdown menu
   const [countryInfo, setCountryInfo] = useState({});                             // gets the WORLD'S INFO first -- if not, then -- country's info
   const [tableData, setTableData] = useState([]);                                 // data for the table
-  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });   // map positions
-  const [mapZoom, setMapZoom] = useState(3);                                      // map zoom level
+  const [mapCenter, setMapCenter] = useState({ lat: 10, lng: 5 });   // map positions
+  const [mapZoom, setMapZoom] = useState(1.5);                                      // map zoom level
   const [countryPopupInfo, setCountryPopupInfo] = useState([]);                   // country's info for popup on the Map
   const [casesType, setCasesType] = useState("cases");                            // which type of case is it? (ex: cases, recovered, deaths)
 
@@ -105,70 +126,75 @@ function App() {
   }, []);
 
   return (
-    <div className="container">
+    <div style={{ backgroundColor: '#e8eae6' }}>
+      <div className="container">
       {
       /* 
       *   LEFT container
       *
       */
       }
-      <div className="left__container">
-        {/* passing the object as props */}
-        <MapContent 
-          allCountries={ countries } 
-          clickedCountry={ clickedCountry } 
-          setClickedCountry= { setClickedCountry }
-          countryInfo={ countryInfo }
-          setCountryInfo={ setCountryInfo }
-          center={ mapCenter }
-          setCenter={ setMapCenter }
-          zoom={ mapZoom }
-          setZoom={ setMapZoom }
-          countryPopupInfo={ countryPopupInfo }
-          casesType={ casesType }
-        />
-        <InfoBoxes>
-          <Info 
-            style={ casesColor }
-            onClick={ () => setCasesType("cases") } 
-            casesType={ casesType } 
-            title="Today's Cases" 
-            case={ countryInfo.todayCases } 
-            total={ countryInfo.cases }
+        <div className="left__container">
+          <AppHeader>COVID-19 Tracker</AppHeader>
+          {/* passing the object as props */}
+          <MapContent 
+            allCountries={ countries } 
+            clickedCountry={ clickedCountry } 
+            setClickedCountry= { setClickedCountry }
+            countryInfo={ countryInfo }
+            setCountryInfo={ setCountryInfo }
+            center={ mapCenter }
+            setCenter={ setMapCenter }
+            zoom={ mapZoom }
+            setZoom={ setMapZoom }
+            countryPopupInfo={ countryPopupInfo }
+            casesType={ casesType }
           />
-          <Info 
-            style={ recoveredColor }
-            onClick={ () => setCasesType("recovered") } 
-            casesType={ casesType } 
-            title="Today's Recovered" 
-            case={ countryInfo.todayRecovered } 
-            total={ countryInfo.recovered }
-          />
-          <Info 
-            style={ deathsColor }
-            onClick={ () => setCasesType("deaths") } 
-            casesType={ casesType } 
-            title="Today's Deaths" 
-            case={ countryInfo.todayDeaths } 
-            total={ countryInfo.deaths }
-          />
-        </InfoBoxes>
-        <CovidGraph casesType={ casesType } />
+          <InfoBoxes className="infoBoxes">
+            <Info 
+              style={ casesColor }
+              onClick={ () => setCasesType("cases") } 
+              casesType={ casesType } 
+              title="Today's Cases" 
+              case={ countryInfo.todayCases } 
+              total={ countryInfo.cases }
+            />
+            <Info 
+              style={ recoveredColor }
+              onClick={ () => setCasesType("recovered") } 
+              casesType={ casesType } 
+              title="Today's Recovered" 
+              case={ countryInfo.todayRecovered } 
+              total={ countryInfo.recovered }
+            />
+            <Info 
+              style={ deathsColor }
+              onClick={ () => setCasesType("deaths") } 
+              casesType={ casesType } 
+              title="Today's Deaths" 
+              case={ countryInfo.todayDeaths } 
+              total={ countryInfo.deaths }
+            />
+          </InfoBoxes>
+          <CovidGraph casesType={ casesType } />
+        </div>
+        {
+        /* 
+        *   RIGHT container
+        *
+        */
+        }
+        <div className="right__container">
+          <Card style={ cardStyle }>
+            <CardContent>
+              <h2>Live Cases</h2>
+              <Table data={ tableData } />
+            </CardContent>
+          </Card>
+        </div>
       </div>
-      {
-      /* 
-      *   RIGHT container
-      *
-      */
-      }
-      <div className="right__container">
-        <Card>
-          <CardContent>
-            <h2>Live Cases</h2>
-            <Table data={ tableData } />
-          </CardContent>
-        </Card>
-      </div>
+      {/* Started Working on it but idk if we need it? */}
+      {/* <Footer /> */}
     </div>
   );
 }

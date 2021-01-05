@@ -53,6 +53,7 @@ const PopupItem = styled.div`
   }
 `;
 
+
 export const drawCircle = (data, casesType, clickedCountry) => {  
   return data.map((country) => {
     return (
@@ -88,7 +89,6 @@ export const drawCircle = (data, casesType, clickedCountry) => {
             <PopupItem>{ numeral(country.deaths).format('0,0') }</PopupItem>
           </PopupStyle>
         </Popup>
-        
       </Circle>
     )
   })

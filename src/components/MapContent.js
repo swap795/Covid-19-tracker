@@ -9,11 +9,15 @@ import { drawCircle } from '../util';
 // temporary imports for testing
 
 
+
+const MapHeader = styled.div`
+`;
+
 const MapStyle = styled.div`
    /* background-color: #acaaaa; */
    background-color: #cdd0cb;
-   height: 50vh;
-   width: 100%;
+   height: 30rem;
+   width: 95%;
    border-radius: .6rem;
    padding: 1rem;
    margin-top: 1rem;
@@ -24,6 +28,17 @@ const MapStyle = styled.div`
    .leaflet-container {
       width: 100%;
       height: 100%;
+   }
+
+   @media (max-width: 1024px) {
+      padding: .5rem;
+      margin-left: 4rem;
+      width: 85%;
+   }
+   
+   @media (max-width: 425px) {
+      margin-left: 1.5rem;
+      width: 80%;
    }
 `;
 
@@ -80,9 +95,9 @@ function MapContent(props) {
 
 
    return(
-      <div>
+      <MapHeader>
          <FormControl>
-            <Select 
+            <Select
                variant="outlined" 
                value={ props.clickedCountry }
                onChange={ clickHandler } 
@@ -109,7 +124,7 @@ function MapContent(props) {
                }
             </MapContainer>
          </MapStyle>
-      </div>
+      </MapHeader>
    );
 }
 
