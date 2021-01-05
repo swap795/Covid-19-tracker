@@ -48,8 +48,8 @@ function Info(props) {
          <Card className={ classes.card } style={ props.style }>
             <CardContent>
                <Typography className= { classes.texts } color="white"><b>{ props.title }</b></Typography>
-               <H2Style className= { classes.texts } >{ numeral(props.case).format('0,0') }</H2Style>
-               <Typography className= { classes.texts } color="textSecondary white">{ numeral(props.total).format('0,0') } is <b>Total</b></Typography>
+               <H2Style className= { classes.texts } >{ numeral(props.case).format('+0,0') }</H2Style>
+               <Typography className= { classes.texts } color="textSecondary white">{ numeral(props.total).format('+0,0') } is <b>Total</b></Typography>
             </CardContent>
          </Card>
       </HoverContainer>

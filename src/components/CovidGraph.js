@@ -22,7 +22,10 @@ const casesTypeColors = {
 
 
 const options = {
-   responsive: true,
+   animation: {
+      duration: 1000,
+      easing: 'linear',
+   },
    scales: {
       xAxes: [
          {

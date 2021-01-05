@@ -78,15 +78,15 @@ export const drawCircle = (data, casesType, clickedCountry) => {
           }}></div>
           <PopupStyle>
             <PopupItem><span>Population:</span></PopupItem>
-            <PopupItem>{ numeral(country.population).format('0,0') }</PopupItem>
+            <PopupItem>{ numeral(country.population).format('0.000 a') }</PopupItem>
             <PopupItem><span>Total Cases:</span></PopupItem>
-            <PopupItem>{ numeral(country.cases).format('0,0') }</PopupItem>
+            <PopupItem>{ numeral(country.cases).format('0.000 a') }</PopupItem>
             <PopupItem><span>Active Cases:</span></PopupItem>
-            <PopupItem>{ numeral(country.active).format('0,0') }</PopupItem>
+            <PopupItem>{ numeral(country.active).format('0.000 a') }</PopupItem>
             <PopupItem><span>Total Recovered:</span></PopupItem>
-            <PopupItem>{ numeral(country.recovered).format('0,0') }</PopupItem>
+            <PopupItem>{ numeral(country.recovered).format('0.000 a') }</PopupItem>
             <PopupItem><span>Total Deaths:</span></PopupItem>
-            <PopupItem>{ numeral(country.deaths).format('0,0') }</PopupItem>
+            <PopupItem>{ numeral(country.deaths).format('0.000 a') }</PopupItem>
           </PopupStyle>
         </Popup>
       </Circle>
