@@ -22,6 +22,7 @@ const casesTypeColors = {
 
 
 const options = {
+   responsive: true,
    scales: {
       xAxes: [
          {

@@ -3,6 +3,7 @@ import MapContent from './components/MapContent';
 import Info from './components/Info';
 import Table from './components/Table';
 import CovidGraph from './components/CovidGraph';
+import Footer from './components/Footer';
 
 import { sortData, numberWithCommas } from './util';
 
@@ -28,6 +29,7 @@ const InfoBoxes = styled.div`
   }
 
   @media (max-width: 425px) {
+    flex-direction: column;
     padding: 0.5rem;
     margin-left: 0.5rem;
     width: 90%;
@@ -124,71 +126,75 @@ function App() {
   }, []);
 
   return (
-    <div className="container">
-    {
-    /* 
-    *   LEFT container
-    *
-    */
-    }
-    <div className="left__container">
-      <AppHeader>COVID-19 Tracker</AppHeader>
-      {/* passing the object as props */}
-      <MapContent 
-        allCountries={ countries } 
-        clickedCountry={ clickedCountry } 
-        setClickedCountry= { setClickedCountry }
-        countryInfo={ countryInfo }
-        setCountryInfo={ setCountryInfo }
-        center={ mapCenter }
-        setCenter={ setMapCenter }
-        zoom={ mapZoom }
-        setZoom={ setMapZoom }
-        countryPopupInfo={ countryPopupInfo }
-        casesType={ casesType }
-      />
-      <InfoBoxes className="infoBoxes">
-        <Info 
-          style={ casesColor }
-          onClick={ () => setCasesType("cases") } 
-          casesType={ casesType } 
-          title="Today's Cases" 
-          case={ countryInfo.todayCases } 
-          total={ countryInfo.cases }
-        />
-        <Info 
-          style={ recoveredColor }
-          onClick={ () => setCasesType("recovered") } 
-          casesType={ casesType } 
-          title="Today's Recovered" 
-          case={ countryInfo.todayRecovered } 
-          total={ countryInfo.recovered }
-        />
-        <Info 
-          style={ deathsColor }
-          onClick={ () => setCasesType("deaths") } 
-          casesType={ casesType } 
-          title="Today's Deaths" 
-          case={ countryInfo.todayDeaths } 
-          total={ countryInfo.deaths }
-        />
-      </InfoBoxes>
-      <CovidGraph casesType={ casesType } />
-    </div>
-    {
-    /* 
-    *   RIGHT container
-    *
-    */
-    }
-      <div className="right__container">
-        <Card style={ cardStyle }>
-          <CardContent>
-            <h2>Live Cases</h2>
-            <Table data={ tableData } />
-          </CardContent>
-        </Card>
+    <div style={{ backgroundColor: '#e8eae6' }}>
+      <div className="container">
+      {
+      /* 
+      *   LEFT container
+      *
+      */
+      }
+        <div className="left__container">
+          <AppHeader>COVID-19 Tracker</AppHeader>
+          {/* passing the object as props */}
+          <MapContent 
+            allCountries={ countries } 
+            clickedCountry={ clickedCountry } 
+            setClickedCountry= { setClickedCountry }
+            countryInfo={ countryInfo }
+            setCountryInfo={ setCountryInfo }
+            center={ mapCenter }
+            setCenter={ setMapCenter }
+            zoom={ mapZoom }
+            setZoom={ setMapZoom }
+            countryPopupInfo={ countryPopupInfo }
+            casesType={ casesType }
+          />
+          <InfoBoxes className="infoBoxes">
+            <Info 
+              style={ casesColor }
+              onClick={ () => setCasesType("cases") } 
+              casesType={ casesType } 
+              title="Today's Cases" 
+              case={ countryInfo.todayCases } 
+              total={ countryInfo.cases }
+            />
+            <Info 
+              style={ recoveredColor }
+              onClick={ () => setCasesType("recovered") } 
+              casesType={ casesType } 
+              title="Today's Recovered" 
+              case={ countryInfo.todayRecovered } 
+              total={ countryInfo.recovered }
+            />
+            <Info 
+              style={ deathsColor }
+              onClick={ () => setCasesType("deaths") } 
+              casesType={ casesType } 
+              title="Today's Deaths" 
+              case={ countryInfo.todayDeaths } 
+              total={ countryInfo.deaths }
+            />
+          </InfoBoxes>
+          <CovidGraph casesType={ casesType } />
+        </div>
+        {
+        /* 
+        *   RIGHT container
+        *
+        */
+        }
+        <div className="right__container">
+          <Card style={ cardStyle }>
+            <CardContent>
+              <h2>Live Cases</h2>
+              <Table data={ tableData } />
+            </CardContent>
+          </Card>
+        </div>
       </div>
+      {/* Started Working on it but idk if we need it? */}
+      {/* <Footer /> */}
     </div>
   );
 }

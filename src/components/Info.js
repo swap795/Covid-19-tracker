@@ -9,7 +9,7 @@ const useStyle = makeStyles((theme) => ({
    card: {
       padding: '0 1rem 0 0.5rem',
       borderRadius: '1rem',
-      margin: '1rem',
+      margin: '0.5rem',
 
       // this is material-ui version of responsive design
       [theme.breakpoints.down('sm')]: {
