@@ -47,7 +47,7 @@ const options = {
             ticks: {
                autoSkip: false,
                min: 0,
-               max: 100000000,
+               max: 300000000,
                callback: (value) => {
                   return numeral(value).format("0.0 a");
                },
